@@ -7,9 +7,7 @@ angular.module('grocery.controllers')
       var categoryId = $stateParams.categoryId
       $scope.products = Categories.getItems(categoryId);
       $scope.controller = "category";
-      $scope.isCategory = true;
-      $scope.title = "Categorie: " + products[0].CategoryName_fr;
-
+      $scope.isNested = true;
     }
     else
     {

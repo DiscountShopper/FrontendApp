@@ -11,7 +11,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
-    
+
     $rootScope.util = {
         logo: {
             MTR: 'metro.png',
@@ -111,7 +111,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
       }
     }
   })
-  
+
   .state('tab.store-detail', {
     url: '/store/:storeId',
     views: {
@@ -120,7 +120,27 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
         controller: 'StoreController'
       }
     }
-  });
+  })
+
+    .state('tab.cart', {
+      url: '/cart',
+      views: {
+        'tab-cart': {
+          templateUrl: 'templates/tab-cart.html',
+          controller: 'CartController'
+        }
+      }
+    })
+
+    .state('tab.cart-item', {
+      url: '/cart/:itemId',
+      views: {
+        'tab-cart': {
+          templateUrl: 'templates/tab-item-detail.html',
+          controller: 'CartController'
+        }
+      }
+    });
 
   // if none of the above states are matched, use this as the fallback
   $urlRouterProvider.otherwise('/tab/item');
