@@ -1,10 +1,11 @@
 <ion-view view-title="Épiceries">
   <ion-content>
     <ion-list>
-      <ion-item class="item-avatar item-icon-right" collection-repeat="store in stores" type="item-text-wrap" href="#/tab/store/{{store.guid}}">
+      <ion-item class="item-thumbnail-left item-icon-right" collection-repeat="store in stores" type="item-text-wrap" href="#/tab/store/{{store.guid}}">
         <img ng-src="{{util.getLogo(store.banner_code)}}">
         <h2>{{store.name}}</h2>
-        <p><i class="icon-left ion-location"></i> {{store.distance}} km | {{store.address}}, {{store.city}}, {{store.postal_code}}</p>
+        <p> {{store.address}}{{store.address ? ',' : ''}} {{store.city}}</p>
+        <p><i class="icon-left ion-location"></i> {{store.distance}} km</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
