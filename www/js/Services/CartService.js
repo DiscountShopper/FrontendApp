@@ -5,7 +5,8 @@ angular.module('grocery.services')
 
     return {
       all: function() {
-        var cartProducts = localStorage.getObject("cartProducts")
+        var cartProducts = localStorage.getObject("cartProducts");
+        console.log("cartProducts ="+cartProducts);
         return cartProducts;
       },
       getItems: function(productId) {

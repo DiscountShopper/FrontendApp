@@ -7,7 +7,7 @@
         <img ng-src="{{product.ImageURL}}">
         <h2>{{product.ProductTitle}}</h2>
         <p>{{product.Price}}</p>
-        <button class="add-cart button icon ion-plus-round" ng-click="addCart()"></button>
+        <ion-option-button class="button-positive ion-plus-round" ng-click="addCart(product);">Ajouter</ion-option-button>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

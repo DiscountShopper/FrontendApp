@@ -6,10 +6,12 @@
         <h2>Vous avez ajoutez aucun produit dans votre liste.</h2>
       </ion-item>
       <ion-item class="item-avatar item-icon-right" collection-repeat="product in cartProducts" ng-show="cartProducts!=null" type="item-text-wrap"
-                href="#/tab/{{controller}}/{{isNested?product.CategoryId+'/':''}}{{product.Id}}" ng-click="selectOne()">
+                href="#/tab/{{controller}}/{{isNested?product.CategoryId+'/':''}}{{product.Id}}" ng-click="selectOne()" item-height="78px" item-width="100%">
         <img ng-src="{{product.ImageURL}}">
         <h2>{{product.ProductTitle}}</h2>
         <p>{{product.Price}}</p>
+        <span class="badge-cart badge badge-assertive">{{product.CartQuantity}}</span>
+        <ion-option-button class="button-positive ion-close-round" ng-click="deleteCart(product);">Supprimer</ion-option-button>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
