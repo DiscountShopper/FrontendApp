@@ -17,7 +17,8 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
             MTR: 'metro.png',
             MAXI: 'maxi.png',
             SUPRC: 'superc.png',
-            IGA: 'iga.png'
+            IGA: 'iga.png',
+            LOB: 'loblaws.png'
         },
         getLogo: function(code){
             return 'img/logos/' + this.logo[code];
