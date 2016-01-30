@@ -4,7 +4,7 @@
       <ion-item class="item-avatar item-icon-right" collection-repeat="store in stores" type="item-text-wrap" href="#/tab/store/{{store.guid}}">
         <img ng-src="{{util.getLogo(store.banner_code)}}">
         <h2>{{store.name}}</h2>
-        <p>{{store.address}}, {{store.postal_code}}</p>
+        <p><i class="icon-left ion-location"></i> {{store.distance}} km | {{store.address}}, {{store.city}}, {{store.postal_code}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>
