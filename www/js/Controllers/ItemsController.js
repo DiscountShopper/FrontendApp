@@ -1,7 +1,20 @@
 angular.module('grocery.controllers')
 .controller('ItemsController', function($scope, $stateParams, Items) {
-    $scope.products = Items.all();
-  $scope.controller = "item";
-  $scope.isCategory = false;
-  $scope.title = "Articles"
+    
+    $scope.refresh = function(){
+        $scope.products = Items.all();
+        $scope.$broadcast('scroll.refreshComplete');
+    }
+    
+    $scope.$on('refresh', function(event, args) {
+        $scope.refresh();
+    });
+    
+    if (postalCode != ''){
+        $scope.refresh();
+    }
+    
+    $scope.controller = "item";
+    $scope.isCategory = false;
+    $scope.title = "Articles"
 });

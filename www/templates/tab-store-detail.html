@@ -1,10 +1,11 @@
 <ion-view view-title="{{store.name}}">
   <ion-content>
     <ion-list>
-        <ion-item class="item-avatar">
+        <ion-item class="item-thumbnail-left">
             <img ng-src="{{util.getLogo(store.banner_code)}}">
             <h2>{{store.name}}</h2>
-            <p><i class="icon-left ion-location"></i> {{store.distance}} km | {{store.address}}, {{store.city}}, {{store.postal_code}}</p>
+            <p>{{store.address}}{{store.address ? ',' : ''}}  {{store.city}}</p>
+            <p><i class="icon-left ion-location"></i> {{store.distance}} km </p>
         </ion-item>
         <ion-item class="item-body">
             <div id="map" class="google-map" data-tap-disabled="true"></div>
