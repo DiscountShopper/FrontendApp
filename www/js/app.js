@@ -7,10 +7,22 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
+    
+    $rootScope.util = {
+        logo: {
+            MTR: 'metro.png',
+            MAXI: 'maxi.png',
+            SUPRC: 'superc.png',
+            IGA: 'iga.png'
+        },
+        getLogo: function(code){
+            return 'img/logos/' + this.logo[code];
+        }
+    }
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);
@@ -75,6 +87,16 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
     views: {
       'tab-store': {
         templateUrl: 'templates/tab-store.html',
+        controller: 'StoresController'
+      }
+    }
+  })
+  
+  .state('tab.store-detail', {
+    url: '/store/:storeId',
+    views: {
+      'tab-store': {
+        templateUrl: 'templates/tab-store-detail.html',
         controller: 'StoreController'
       }
     }

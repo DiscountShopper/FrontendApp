@@ -6,8 +6,7 @@
         </ion-refresher>
     <ion-list>
       <ion-item class="item-avatar item-icon-right" collection-repeat="product in products" type="item-text-wrap" href="#/tab/item/{{product.Id}}" ng-click="selectOne()">
-        
-<img ng-src="{{product.ImageURL}}">
+        <img ng-src="{{product.ImageURL}}">
         <h2>{{product.ProductTitle}}</h2>
         <p>{{product.Price}}</p>
         <i class="icon ion-chevron-right icon-accessory"></i>

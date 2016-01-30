@@ -1,9 +1,12 @@
-<ion-view view-title="Account">
+<ion-view view-title="Épiceries">
   <ion-content>
     <ion-list>
-    <ion-toggle  ng-model="settings.enableFriends">
-        Enable Friends
-    </ion-toggle>
+      <ion-item class="item-avatar item-icon-right" collection-repeat="store in stores" type="item-text-wrap" href="#/tab/store/{{store.guid}}">
+        <img ng-src="{{util.getLogo(store.banner_code)}}">
+        <h2>{{store.name}}</h2>
+        <p>{{store.address}}, {{store.postal_code}}</p>
+        <i class="icon ion-chevron-right icon-accessory"></i>
+      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>
