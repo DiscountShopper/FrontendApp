@@ -45,11 +45,31 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
       views: {
         'tab-category': {
           templateUrl: 'templates/tab-category.html',
+          controller: 'CategoriesController'
+        }
+      }
+    })
+
+    .state('tab.category-detail', {
+      url: '/category/:categoryId',
+      views: {
+        'tab-category': {
+          templateUrl: 'templates/tab-item.html',
           controller: 'CategoryController'
         }
       }
     })
-    
+
+    .state('tab.category-detail-item-detail', {
+      url: '/category/:categoryId/:itemId',
+      views: {
+        'tab-category': {
+          templateUrl: 'templates/tab-item-detail.html',
+          controller: 'CategoryController'
+        }
+      }
+    })
+
   .state('tab.item', {
     url: '/item',
     views: {
@@ -59,7 +79,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
       }
     }
   })
-  
+
     .state('tab.item-detail', {
       url: '/item/:itemId',
       views: {
