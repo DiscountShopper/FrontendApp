@@ -1,6 +1,5 @@
 angular.module('grocery.controllers')
 .controller('ItemsController', function($scope, $stateParams, Items) {
-    
     $scope.refresh = function(){
         $scope.products = Items.all();
         $scope.$broadcast('scroll.refreshComplete');
@@ -15,6 +14,6 @@ angular.module('grocery.controllers')
     }
     
     $scope.controller = "item";
-    $scope.isCategory = false;
+    $scope.isNested = false;
     $scope.title = "Articles"
 });

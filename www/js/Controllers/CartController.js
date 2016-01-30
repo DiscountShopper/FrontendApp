@@ -1,13 +1,14 @@
 angular.module('grocery.controllers')
-  .controller('CategoryController', function ($scope, $stateParams, Categories, Items)
+  .controller('CartController', function ($scope, $stateParams, Cart, Items)
   {
     var itemId = $stateParams.itemId;
+    console.log(itemId);
     if (itemId === undefined)
     {
-      var categoryId = $stateParams.categoryId
-      $scope.products = Categories.getItems(categoryId);
-      $scope.controller = "category";
-      $scope.isNested = true;
+      $scope.cartProducts = Cart.all();
+      console.log($scope.cartProducts);
+      $scope.controller = "cart";
+      $scope.isNested = false;
     }
     else
     {
