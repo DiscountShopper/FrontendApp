@@ -6,9 +6,29 @@
 -->
 <ion-view view-title="{{product.ProductTitle}}">
   <ion-content class="padding">
-    <img ng-src="{{product.ImageURL}}" style="width: 64px; height: 64px">
-    <p>
-      {{product.ProductTitle}}
-    </p>
+    <ion-list class="card">
+      <ion-item class="item item-avatar">
+        <img src="http://metcash-iga-national-uploads.s3-ap-southeast-2.amazonaws.com/content/uploads/2015/11/23151857/iga-logo.png">
+        <h2>{{product.ProductTitle}}</h2>
+        <p>{{product.EffectiveStartDate | date:"MM/dd/yyyy"}} à {{product.EffectiveEndDate | date:"MM/dd/yyyy"}}</p>
+      </ion-item>
+
+      <div class="item item-body">
+        <img class="full-image" ng-src="{{product.ImageURL}}">
+        <p>
+          Prix avant: <b>{{product.Price}}</b>
+        </p>
+        <p>
+          Prix après: <b>{{product.PriceAsNumber}}</b>
+        </p>
+      </div>
+
+      <ion-item class="item item-body">
+        <h2>Categorie</h2>
+        <p><b>{{product.CategoryName_fr}}</b></p>
+      </ion-item>
+    </ion-list>
   </ion-content>
 </ion-view>
+
+
