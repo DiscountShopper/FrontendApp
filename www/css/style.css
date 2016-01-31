@@ -43,3 +43,7 @@
     width:auto;
     height:auto;
 }
+
+.button a {
+    color: white;
+}
