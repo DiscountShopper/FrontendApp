@@ -17,7 +17,7 @@ angular.module('grocery.services')
       });
     },
 
-    get: function(itemId, publicationId) {
+      get: function(itemId, publicationId) {
         
         return $http.get(baseUrl + market + "/products/" + publicationId + '/' + itemId).then(function(data){
           var i = data.data;
@@ -25,6 +25,14 @@ angular.module('grocery.services')
           i.words = i.key_words ? i.key_words.join(' ') : '';
           return i;
       });
-    }
-  };
-});
+      },
+      getOne: function (itemId, publicationId)
+      {
+        return $http.get(baseUrl + "products/" + publicationId + "/" + itemId).then(function (product)
+        {
+          product.title_fr = util.toUpper(i.title_fr);
+          return products;
+        });
+      }
+    };
+  });

@@ -7,8 +7,8 @@ angular.module('grocery.controllers')
       var categoryId = $stateParams.categoryId;
       Categories.allFromCategory(categoryId).then(function (data)
       {
+        console.log(data);
         $scope.products = data;
-        console.log("Data"+data);
         $ionicLoading.hide();
       });
     };
@@ -21,10 +21,12 @@ angular.module('grocery.controllers')
     }
     else
     {
-      $scope.product = Items.get(itemId);
+
+      $scope.product = Items.getOne(itemId, $stateParams.publicationId);
+      console.log($scope.product);
       var pattern = new RegExp(/\d+/);
-      $scope.product.EffectiveStartDate = pattern.exec($scope.product.EffectiveStartDate)[0];
-      $scope.product.EffectiveEndDate = pattern.exec($scope.product.EffectiveEndDate)[0];
+      $scope.product.effective_start_date = pattern.exec($scope.product.effective_start_date)[0];
+      $scope.product.effective_end_date = pattern.exec($scope.product.effective_end_date)[0];
     }
 
 
