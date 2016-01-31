@@ -26,6 +26,13 @@ angular.module('grocery.controllers')
 
     $scope.loadMap = function (travelMode)
     {
+      $scope.walkDistance = 0;
+      $scope.walkTime = 0;
+      $scope.carDistance = 0;
+      $scope.carTime = 0;
+      $scope.bicycleDistance = 0;
+      $scope.bicycleTime = 0;
+
       if (travelMode===undefined){
         travelMode = google.maps.TravelMode.DRIVING;
       }else{
@@ -148,8 +155,6 @@ angular.module('grocery.controllers')
       function drivingCallback(response, status)
       {
         var elements = response.rows[0].elements;
-        $scope.carDistance = 0;
-        $scope.carTime = 0;
 
         _.each(elements,function(element){
           $scope.carDistance += element.distance.value;
@@ -164,8 +169,6 @@ angular.module('grocery.controllers')
       function walkingCallback(response, status)
       {
         var elements = response.rows[0].elements;
-        $scope.walkDistance = 0;
-        $scope.walkTime = 0;
 
         _.each(elements,function(element){
           $scope.walkDistance += element.distance.value;
@@ -179,8 +182,7 @@ angular.module('grocery.controllers')
       function bicycleCallback(response, status)
       {
         var elements = response.rows[0].elements;
-        $scope.bicycleDistance = 0;
-        $scope.bicycleTime = 0;
+
 
         _.each(elements,function(element){
           $scope.bicycleDistance += element.distance.value;
