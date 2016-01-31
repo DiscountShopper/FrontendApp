@@ -26,10 +26,10 @@ angular.module('grocery.controllers')
 
     $scope.loadMap = function (travelMode)
     {
-      $scope.walkDistance = 0;
-      $scope.walkTime = 0;
       $scope.carDistance = 0;
       $scope.carTime = 0;
+      $scope.walkDistance = 0;
+      $scope.walkTime = 0;
       $scope.bicycleDistance = 0;
       $scope.bicycleTime = 0;
 
@@ -154,6 +154,10 @@ angular.module('grocery.controllers')
 
       function drivingCallback(response, status)
       {
+        $scope.carDistance = 0;
+        $scope.carTime = 0;
+
+
         var elements = response.rows[0].elements;
 
         _.each(elements,function(element){
@@ -168,6 +172,9 @@ angular.module('grocery.controllers')
 
       function walkingCallback(response, status)
       {
+        $scope.walkDistance = 0;
+        $scope.walkTime = 0;
+
         var elements = response.rows[0].elements;
 
         _.each(elements,function(element){
@@ -181,6 +188,8 @@ angular.module('grocery.controllers')
 
       function bicycleCallback(response, status)
       {
+        $scope.bicycleDistance = 0;
+        $scope.bicycleTime = 0;
         var elements = response.rows[0].elements;
 
 
@@ -193,7 +202,11 @@ angular.module('grocery.controllers')
         //extendValidStores(elements);
       }
 
-    }
+    };
+
+    $scope.init = function(){
+      $scope.loadMap('DRIVING');
+    };
 
     storeTypes.forEach(function (type)
     {

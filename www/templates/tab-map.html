@@ -2,7 +2,7 @@
   <ion-nav-title>Itinéraire</ion-nav-title>
   <ion-content>
       <ion-list>
-        <ion-item ng-repeat="store in validStores" type="item-text-wrap">
+        <ion-item ng-repeat="store in validStores" type="item-text-wrap" data-ng-init="init()">
             {{store.name}} à {{store.distance}} en {{store.time}}
         </ion-item>
         <ion-item class="item-body">
@@ -11,17 +11,17 @@
 
         <div class="list card">
 
-          <a class="item item-icon-left assertive" href="#" ng-click="loadMap('DRIVING');">
+          <a class="item item-icon-left assertive" href="#">
             <i class="icon ion-android-car"></i>
             Voiture ({{carDistance}} en {{carTime}})
           </a>
 
-          <a class="item item-icon-left assertive" href="#" ng-click="loadMap('WALKING');">
+          <a class="item item-icon-left assertive" href="#">
             <i class="icon ion-android-walk"></i>
             Marche ({{walkDistance}} en {{walkTime}})
           </a>
 
-          <a class="item item-icon-left assertive" href="#" ng-click="loadMap('BICYCLING');">
+          <a class="item item-icon-left assertive" href="#">
             <i class="icon ion-android-bicycle"></i>
             Bicycle ({{bicycleDistance}} en {{bicycleTime}})
           </a>
