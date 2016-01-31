@@ -18,6 +18,9 @@ angular.module('grocery.controllers')
     };
 
     $scope.submitPostalCode = function(code){
+        $ionicLoading.show({
+            template: 'Loading...'
+        });
         postalCode = code.toUpperCase();
 
         if (postalCode.length == 7){
@@ -29,9 +32,6 @@ angular.module('grocery.controllers')
         $scope.modal.hide();
         $scope.$broadcast('refresh');
         $ionicSideMenuDelegate.toggleLeft(false);
-        $ionicLoading.show({
-            template: 'Loading...'
-        });
     };
 
   $scope.addCart = function (product)
