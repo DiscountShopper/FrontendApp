@@ -22,7 +22,8 @@ var util = {
         UNIP: 'uniprix.png',
         PXM: 'proxim.png',
         PHX: 'pharmaprix.png',
-        LAM: 'metm.png'
+        LAM: 'metm.png',
+        SDM: 'pharmaprix.png'
     },
     name: {
         MTR: 'Metro',
@@ -36,7 +37,8 @@ var util = {
         UNIP: 'Uniprix',
         PXM: 'Proxim',
         PHX: 'Pharmaprix',
-        LAM: 'Aliments M & M'
+        LAM: 'Aliments M & M',
+        SDM: 'Shopper\'s Drug Mart'
     },
     bigBanner: {
         MTR: 'METRO',
@@ -50,7 +52,8 @@ var util = {
         UNIP: 'UNIPRIX',
         PXM: 'PROXIM',
         PHX: 'PHARMAPRIX',
-        LAM: 'M_ET_M'
+        LAM: 'M_ET_M',
+        SDM: 'SHOPPERS_DRUG_MART'
     },
     markets : {
         MTR: 'groceries',
@@ -64,7 +67,8 @@ var util = {
         UNIP: 'drugstores',
         PXM: 'drugstores',
         PHX: 'drugstores',
-        LAM: 'groceries'
+        LAM: 'groceries',
+        SDM: 'drugstores'
     },
     getLogo: function(code){
         return 'img/logos/' + this.logo[code];

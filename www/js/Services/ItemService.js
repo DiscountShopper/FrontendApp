@@ -9,7 +9,7 @@ angular.module('grocery.services')
           data.data.forEach(function(e){
               e.items.forEach(function(i){
                   i.title_fr = util.toUpper(i.title_fr);
-                  i.words = i.key_words ? i.key_words.join(' ') : '';
+                  i.words = i.search_key_words ? i.search_key_words.join(' ') : '';
                   products.push(i);
               });
           });
@@ -21,7 +21,7 @@ angular.module('grocery.services')
         return $http.get(baseUrl + market + "/products/" + publicationId + '/' + itemId).then(function(data){
           var i = data.data;
           i.title_fr = util.toUpper(i.title_fr);
-          i.words = i.key_words ? i.key_words.join(' ') : '';
+          i.words = i.search_key_words ? i.search_key_words.join(' ') : '';
           return i;
       });
       },
