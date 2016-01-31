@@ -1,6 +1,6 @@
 angular.module('grocery.services')
 
-  .factory('Categories', function ($http)
+  .factory('Categories', function ($http,Items)
   {
     // Might use a resource here that returns a JSON array
     var categories = [];
@@ -19,18 +19,13 @@ angular.module('grocery.services')
       allFromCategory: function (categoryId)
       {
         console.log(categoryId)
-        return $http.get(baseUrl + "publications/MAXI/83bb2f98-3bd6-488e-843d-b9fb977e4f11").then(function (data)
+        return Items.all().then(function (products)
         {
-          data.data[0].items.forEach(function (i)
+          var dataz = _.filter(products, function (product)
           {
-            i.title_fr = util.toUpper(i.title_fr);
+            return product.category_id == categoryId;
           });
-          var products = data.data[0].items;
-          console.log("swag"+products);
-          return _.filter(products, function (p)
-          {
-            return p.CategoryId == categoryId;
-          });
+          return dataz;
         });
       },
       getItems: function (categoryId)

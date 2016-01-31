@@ -63,7 +63,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
     })
 
     .state('tab.category-detail-item-detail', {
-      url: '/category/:categoryId/:itemId',
+      url: '/category/:categoryId/:itemId/:publicationId',
       views: {
         'tab-category': {
           templateUrl: 'templates/tab-item-detail.html',
@@ -83,7 +83,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
   })
 
     .state('tab.item-detail', {
-      url: '/item/:itemId',
+      url: '/item/:itemId/:publicationId',
       views: {
         'tab-item': {
           templateUrl: 'templates/tab-item-detail.html',
