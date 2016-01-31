@@ -7,7 +7,7 @@ angular.module('grocery.services')
     return {
       all: function (postalCode)
       {
-        return $http.get(baseUrl + "closest/categories/" + postalCode).then(function (data)
+        return $http.get(baseUrl + market + "/closest/categories/" + postalCode).then(function (data)
         {
           categories = data.data;
           var allProducts = _.first(categories);

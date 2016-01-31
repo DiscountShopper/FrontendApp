@@ -1,18 +1,22 @@
 <ion-view view-title="Panier">
+    <ion-nav-buttons side="right">
+      <button class="button button-icon icon ion-map" ng-click="redirectToMap()">
+      </button>
+    </ion-nav-buttons>
   <ion-content>
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="refresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-avatar item-icon-right" ng-show="cartProducts==null" type="item-text-wrap"">
-        <h2>Vous avez ajoutez aucun produit dans votre liste.</h2>
+      <ion-item class="item-avatar item-icon-right" ng-show="cartProducts == null || cartProducts.lenght == 0" type="item-text-wrap"">
+        <h2>Votre panier est vide.</h2>
       </ion-item>
       <ion-item class="item-avatar item-icon-right" collection-repeat="product in cartProducts" ng-show="cartProducts!=null" type="item-text-wrap"
-                href="#/tab/{{controller}}/{{isNested?product.category_id+'/':''}}{{product.id}}" ng-click="selectOne();" on-hold="showPopupQuantity(product);" item-height="80px" item-width="100%">
+                href="#/tab/{{controller}}/{{isNested?product.category_id+'/':''}}{{product.identifier}}/{{product.publication_id}}" on-hold="showPopupQuantity(product);" item-height="80px" item-width="100%">
         <img ng-src="{{product.image}}">
         <h2>{{product.title_fr}}</h2>
         <p>{{product.price}}</p>
         <span class="badge-cart badge badge-assertive">{{product.CartQuantity}}</span>
-        <ion-option-button class="button-energized ion-close-round" ng-click="deleteCart(product);">Supprimer</ion-option-button>
-        <ion-option-button class="button-positive ion-edit" ng-click="showPopupQuantity(product);">Quantité</ion-option-button>
+        <ion-option-button class="button-assertive ion-close-round" ng-click="deleteCart(product);deleteCartMain(product);"></ion-option-button>
+        <ion-option-button class="button-energized ion-edit" ng-click="showPopupQuantity(product);"></ion-option-button>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
     </ion-list>

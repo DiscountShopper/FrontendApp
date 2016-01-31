@@ -1,12 +1,15 @@
 angular.module('grocery.controllers')
-.controller('MainController', function($scope, $stateParams, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup) {
+.controller('MainController', function($scope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
+    $scope.data = {};
     
     if (postalCode != ''){
         $scope.postalCode = postalCode
     }
+    
+    $scope.cartBadge = util.sumCart();
 
     $ionicModal.fromTemplateUrl('templates/modal-postalcode.html' , {scope: $scope, hardwareBackButtonClose: false, backdropClickToClose: false, focusFirstInput: true}).then(function (modal) {
         $scope.modal = modal;
@@ -45,55 +48,56 @@ angular.module('grocery.controllers')
         newMarket = item;
     }
     
-
+  $scope.detectPosition = function(){
+      var mapURL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+  }
+  
   $scope.addCart = function (product)
   {
     var productList = localStorage.getObject("cartProducts");
-    _.extend(product, {CartQuantity: 1});
-    console.log(product);
-    if (productList == null || productList.length == 0)
-    {
+    product.CartQuantity = 1;
+    if (productList == null || productList.length == 0){
       localStorage.setObject("cartProducts", [product]);
     }
-    else
-    {
-      var cartProduct = _.find(productList, {id: product.id});
-      console.log(cartProduct);
-      if (cartProduct !== undefined)
-      {
+    else {
+      var cartProduct = _.find(productList, function(p){ return p.identifier == product.identifier; });
+      if (cartProduct)
         cartProduct.CartQuantity++;
-        _.extend(_.findWhere(productList, { CartQuantity: cartProduct.CartQuantity }), cartProduct);
-        localStorage.setObject("cartProducts", productList);
-      }
-      else
-      {
+      else 
         productList.push(product);
-        localStorage.setObject("cartProducts", productList);
-      }
+      localStorage.setObject("cartProducts", productList);
     }
-    console.log(productList);
     $scope.$broadcast('refreshCart');
+    $scope.cartBadge++;
+    $ionicListDelegate.closeOptionButtons();
   };
-
-  $scope.data = {};
-
+  
   $scope.changeQuantity = function (product, quantity)
   {
-    var productList = localStorage.getObject("cartProducts");
-    if (productList != null && productList.length > 0)
-    {
-      var cartProduct = _.find(productList, {id: product.id});
-      console.log(cartProduct);
-      cartProduct.CartQuantity = quantity;
-      _.extend(_.findWhere(productList, {CartQuantity: cartProduct.CartQuantity}), cartProduct);
-      localStorage.setObject("cartProducts", productList);
-      $scope.$broadcast('refreshCart');
+    var productList = Cart.all();
+    if (productList.length > 0) {
+        var product = _.find(productList, {identifier: product.identifier});
+        $scope.cartBadge += quantity - product.CartQuantity;
+        product.CartQuantity = quantity;
+        localStorage.setObject("cartProducts", productList);
+        $scope.$broadcast('refreshCart');
     }
+    $ionicListDelegate.closeOptionButtons();
   };
-
+  
+  $scope.deleteCartMain = function(product){
+      $scope.cartBadge -= product.CartQuantity;
+  }
+  
+  
+    $scope.redirectToMap = function(){
+        alert("sadf");
+        $state.go('tab.cart-map')
+    };
+  
   $scope.showPopupQuantity = function (product)
   {
-    console.log(product)
+    $scope.data.cartQuantity = product.CartQuantity;
     $ionicPopup.show({
       template: '<input type="number" ng-model="data.cartQuantity">',
       title: 'Entrer la quantité de votre item',
@@ -108,7 +112,6 @@ angular.module('grocery.controllers')
           {
             if (!$scope.data.cartQuantity)
             {
-              //don't allow the user to close unless he enters wifi password
               quantity.preventDefault();
             }
             else

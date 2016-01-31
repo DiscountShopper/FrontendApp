@@ -18,7 +18,6 @@ angular.module('grocery.services')
     },
 
       get: function(itemId, publicationId) {
-        
         return $http.get(baseUrl + market + "/products/" + publicationId + '/' + itemId).then(function(data){
           var i = data.data;
           i.title_fr = util.toUpper(i.title_fr);

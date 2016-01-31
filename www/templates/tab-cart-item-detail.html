@@ -11,7 +11,7 @@
         <p>{{product.effective_start_date | date:"MM/dd/yyyy"}} à {{product.effective_end_date | date:"MM/dd/yyyy"}}</p>
       </ion-item>
       
-      <ion-item class="item item-icon-right" href="#/tab/item/store/single/{{nearStore.guid}}">
+      <ion-item class="item item-icon-right" href="#/tab/cart/store/single/{{nearStore.guid}}/{{product.banner_code}}">
         <h2>Disponible chez {{nearStore.name}}</h2>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
@@ -19,12 +19,6 @@
       <div class="item item-body product-image">
         <img class="full-image" ng-src="{{product.image}}">
       </div>
-      
-      <ion-item class="item">
-          <button class="button button-full button-balanced" ng-click="addCart(product)">
-            Ajouter
-            </button>
-      </ion-item>
       
     </ion-list>
   </ion-content>

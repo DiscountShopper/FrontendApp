@@ -95,7 +95,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
     })
     
     .state('tab.item-detail-store', {
-      url: '/item/store/:storeId',
+      url: '/item/store/single/:storeId',
       views: {
         'tab-item': {
           templateUrl: 'templates/tab-store-detail.html',
@@ -135,11 +135,29 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
     })
 
     .state('tab.cart-item', {
-      url: '/cart/:itemId',
+      url: '/cart/:itemId/:publicationId',
       views: {
         'tab-cart': {
-          templateUrl: 'templates/tab-item-detail.html',
-          controller: 'CartController'
+          templateUrl: 'templates/tab-cart-item-detail.html',
+          controller: 'ItemController'
+        }
+      }
+    })
+    .state('tab.cart-item-store', {
+      url: '/cart/store/single/:storeId/:bannerCode',
+      views: {
+        'tab-cart': {
+          templateUrl: 'templates/tab-store-detail.html',
+          controller: 'StoreController'
+        }
+      }
+    })
+    .state('tab.cart-map', {
+      url: '/cart/map',
+      views: {
+        'tab-cart': {
+          templateUrl: 'templates/tab-map.html',
+          controller: 'MapController'
         }
       }
     });
@@ -148,12 +166,3 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
   $urlRouterProvider.otherwise('/tab/item');
 
 });
-
-Storage.prototype.setObject = function(key, value) {
-    this.setItem(key, JSON.stringify(value));
-}
-
-Storage.prototype.getObject = function(key) {
-    var value = this.getItem(key);
-    return value && JSON.parse(value);
-}

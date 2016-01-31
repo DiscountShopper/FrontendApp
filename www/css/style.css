@@ -32,3 +32,14 @@
 .platform-android .searchable .has-tabs-top{
     padding-top: 40px;
 }
+
+.product-image{
+    text-align:center;
+}
+
+.product-image img.full-image{
+    max-width:100%;
+    max-height:200px;
+    width:auto;
+    height:auto;
+}

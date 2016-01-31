@@ -1,7 +1,6 @@
 angular.module('grocery.controllers')
 .controller('StoreController', function($scope, $stateParams, $ionicLoading, $compile, Stores) {
-    
-    Stores.get($stateParams.storeId).then(function(data){
+    Stores.getForCartItem($stateParams.storeId, $stateParams.bannerCode).then(function(data){
         $scope.store = data;
         var position = new google.maps.LatLng($scope.store.latitude, $scope.store.longitude);
         var mapOptions = { center: position, zoom: 16, mapTypeId: google.maps.MapTypeId.ROADMAP };
@@ -13,5 +12,4 @@ angular.module('grocery.controllers')
             title: $scope.store.name
         });
     });
-    
 });
