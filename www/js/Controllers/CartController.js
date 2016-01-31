@@ -1,5 +1,5 @@
 angular.module('grocery.controllers')
-  .controller('CartController', function ($scope, $state, $stateParams, $ionicLoading, Cart)
+  .controller('CartController', function ($scope, $rootScope, $state, $stateParams, $ionicLoading, Cart)
   {
     $scope.cartProducts = localStorage.getObject("cartProducts") || [];
     $scope.controller = "cart";
@@ -28,7 +28,7 @@ angular.module('grocery.controllers')
       $scope.refresh();
     });
 
-    if (itemId === undefined && postalCode != '') {
+    if (itemId === undefined && $rootScope.data.postalCode != '') {
       $scope.refresh();
       $scope.isNested = false;
     }

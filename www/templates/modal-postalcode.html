@@ -7,11 +7,16 @@
             <div class="item item-divider">
                 Veuillez entrer votre code postal
             </div>
+            
+            <label class="item">
+                <button class="button button-block button-assertive" ng-click='detectPosition(data.postalCode)' type="submit">Détecter ma position</button>
+            </label>
+            
             <label class="item item-input">
-                <input type="text" ng-model="postalCode" placeholder="Format : A1A 1A1">
+                <input id="pc_modal" type="text" ng-model="data.postalCode" placeholder="Format : A1A 1A1">
             </label>
             <label class="item">
-                <button class="button button-block button-assertive" ng-click='submitPostalCode(postalCode)' ng-disabled="validatePostalCode(postalCode)" type="submit">Soumettre</button>
+                <button class="button button-block button-assertive" ng-click='submitPostalCode(data.postalCode)' ng-disabled="validatePostalCode(data.postalCode)" type="submit">Soumettre</button>
             </label>
         </div>
     </ion-content>

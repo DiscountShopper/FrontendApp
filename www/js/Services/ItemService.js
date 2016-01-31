@@ -1,10 +1,10 @@
 angular.module('grocery.services')
 
-.factory('Items', function($http, $ionicLoading, $ionicPopup) {
+.factory('Items', function($http, $ionicLoading, $rootScope, $ionicPopup) {
   // Might use a resource here that returns a JSON array
   return {
     all: function() {
-      return $http.get(baseUrl + market + "/closest/publications/" + postalCode).then(function(data){
+      return $http.get(baseUrl + market + "/closest/publications/" + $rootScope.data.postalCode).then(function(data){
           var products = [];
           data.data.forEach(function(e){ 
               e.items.forEach(function(i){ 

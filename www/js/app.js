@@ -14,6 +14,9 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
 
     $rootScope.util = window.util;
     $rootScope.market = window.market;
+    $rootScope.data = {
+        postalCode: localStorage.getItem("postalCode") || ''
+    };
     
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

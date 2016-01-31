@@ -1,8 +1,8 @@
 angular.module('grocery.controllers')
-  .controller('CategoriesController', function ($scope, $stateParams, $ionicLoading, Categories)
+  .controller('CategoriesController', function ($scope, $rootScope, $stateParams, $ionicLoading, Categories)
   {
     $scope.refresh = function (){
-      Categories.all($scope.postalCode).then(function (data) {
+      Categories.all($rootScope.data.postalCode).then(function (data) {
         $scope.categories = data;
         $scope.$broadcast('scroll.refreshComplete');
         $ionicLoading.hide();
@@ -13,7 +13,7 @@ angular.module('grocery.controllers')
       $scope.refresh();
     });
 
-    if (postalCode != ''){
+    if ($rootScope.data.postalCode != ''){
         $ionicLoading.show({ template: 'Loading...' });
       $scope.refresh();
     }

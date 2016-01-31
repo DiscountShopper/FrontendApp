@@ -1,19 +1,14 @@
 angular.module('grocery.controllers')
-.controller('MainController', function($scope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart) {
+.controller('MainController', function($scope, $stateParams, $rootScope, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
-    $scope.data = {};
-    
-    if (postalCode != ''){
-        $scope.postalCode = postalCode
-    }
     
     $scope.cartBadge = util.sumCart();
 
     $ionicModal.fromTemplateUrl('templates/modal-postalcode.html' , {scope: $scope, hardwareBackButtonClose: false, backdropClickToClose: false, focusFirstInput: true}).then(function (modal) {
         $scope.modal = modal;
-        if (postalCode == '')
+        if ($rootScope.data.postalCode == '')
             $scope.modal.show();
     });
 
@@ -23,14 +18,13 @@ angular.module('grocery.controllers')
     
     $scope.submitPostalCode = function(code){
         $ionicLoading.show({ template: 'Loading...' });
-        postalCode = code.toUpperCase();
+        $rootScope.data.postalCode = code.toUpperCase();
 
-        if (postalCode.length == 7){
-            postalCode = postalCode.substring(0,3) + postalCode.substring(4, 7);
+        if ($rootScope.data.postalCode.length == 7){
+            $rootScope.data.postalCode = $rootScope.data.postalCode.substring(0,3) + $rootScope.data.postalCode.substring(4, 7);
         }
 
-        $scope.postalCode = postalCode
-        localStorage.setItem('postalCode', postalCode);
+        localStorage.setItem('postalCode', $rootScope.data.postalCode);
         $scope.modal.hide();
         $scope.$broadcast('refresh');
         $ionicSideMenuDelegate.toggleLeft(false);
@@ -49,7 +43,26 @@ angular.module('grocery.controllers')
     }
     
   $scope.detectPosition = function(){
-      var mapURL = "http://maps.googleapis.com/maps/api/geocode/json?address=";
+    $ionicLoading.show({ template: 'Loading...' });
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition($scope.getPostalCode);
+    }
+  }
+  
+  $scope.getPostalCode = function(position){
+      $ionicLoading.show({ template: 'Loading...' });
+      var latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
+      var geocoder= new google.maps.Geocoder()
+      geocoder.geocode({'location': latlng}, function(results, status) {
+        $ionicLoading.hide();
+        if (status === google.maps.GeocoderStatus.OK) {
+            if (results[2]) {
+                $rootScope.data.postalCode = results[2].address_components[0].long_name;
+            } else {
+                window.alert('No results found');
+            }
+        }
+    });
   }
   
   $scope.addCart = function (product)
@@ -91,7 +104,6 @@ angular.module('grocery.controllers')
   
   
     $scope.redirectToMap = function(){
-        alert("sadf");
         $state.go('tab.cart-map')
     };
   

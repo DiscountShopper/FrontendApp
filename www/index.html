@@ -87,8 +87,12 @@
               Code postal
             </ion-item>
             
+            <label class="item">
+                <button class="button button-block button-assertive" ng-click='detectPosition(data.postalCode)' type="submit">Détecter ma position</button>
+            </label>
+            
             <label class="item item-input">
-                <input type="text" ng-model="postalCode" placeholder="Format : A1A 1A1">
+                <input type="text" id="pc_side" ng-model="data.postalCode" placeholder="Format : A1A 1A1">
             </label>
             
             <ion-item class="item item-divider">
@@ -101,7 +105,7 @@
             </ion-list>
             
             <label class="item">
-                <button class="button button-block button-assertive" ng-click='submitSettings(postalCode)' ng-disabled="validatePostalCode(postalCode)" type="submit">Mettre à jour</button>
+                <button class="button button-block button-assertive" ng-click='submitSettings(data.postalCode)' ng-disabled="validatePostalCode(data.postalCode)" type="submit">Mettre à jour</button>
             </label>
           </ion-list>
         </ion-content>

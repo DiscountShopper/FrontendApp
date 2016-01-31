@@ -1,13 +1,13 @@
 angular.module('grocery.services')
 
-  .factory('Categories', function ($http,Items)
+  .factory('Categories', function ($http, $rootScope, Items)
   {
     // Might use a resource here that returns a JSON array
     var categories = [];
     return {
-      all: function (postalCode)
+      all: function ()
       {
-        return $http.get(baseUrl + market + "/closest/categories/" + postalCode).then(function (data)
+        return $http.get(baseUrl + market + "/closest/categories/" + $rootScope.data.postalCode).then(function (data)
         {
           categories = data.data;
           var allProducts = _.first(categories);
