@@ -47,9 +47,15 @@ angular.module('grocery.controllers')
     }
 
   $scope.detectPosition = function(){
-    $ionicLoading.show({ template: 'Loading...' });
+    //$ionicLoading.show({ template: 'Loading...' });
     var options = {timeout: 10000, enableHighAccuracy: true};
-    $cordovaGeolocation.getCurrentPosition(options).then($scope.getPostalCode);
+            $cordovaGeolocation.getCurrentPosition(options).then(
+            function(position){
+                $ionicLoading.show({ template: JSON.stringify(position) });
+
+            },function(error){
+                $ionicLoading.show({ template: JSON.stringify(error) });
+            });
     /*if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition($scope.getPostalCode);
     }*/
@@ -125,10 +131,10 @@ angular.module('grocery.controllers')
         if (Cart.all().length > 0)
             $state.go('tab.cart-map')
     };
-    
+
     $scope.flyerQuery = function(stores, products){
         var validStores = {};
-        
+
         products.forEach(function(product){
             var store = _.find(stores, function(s){ return s.banner_code == product.banner_code; });
             if (!validStores[store.banner_code]){
@@ -143,7 +149,7 @@ angular.module('grocery.controllers')
                     pubguid: product.publication_id }
                 })
             };
-            
+
             $http.post(baseUrl + "pdf", p ).then(function(pdf){
                 var confirmPopup = $ionicPopup.confirm({
                     title: 'Ouverture du cirulaire',
@@ -155,10 +161,10 @@ angular.module('grocery.controllers')
                         window.open(pdf.data.url, '_system', 'location=no');
                     }
                 });
-                
+
             });
     };
-    
+
     $scope.getFlyer = function(){
         products = Cart.all();
         if (products.length > 0){
@@ -185,7 +191,7 @@ angular.module('grocery.controllers')
             });
          }
     };
-    
+
 
   $scope.showPopupQuantity = function (product)
   {
