@@ -15,52 +15,56 @@ var util = {
         MAXI: 'maxi.png',
         SUPRC: 'superc.png',
         IGA: 'iga.png',
-        LOB: 'loblaws.png',
+        LOBPQ: 'loblaws.png',
         PROV: 'provigo.png',
         BRNT: 'brunet.png',
         JCP: 'jeancoutu.png',
         UNIP: 'uniprix.png',
         PXM: 'proxim.png',
-        PHX: 'pharmaprix.png'
+        PHX: 'pharmaprix.png',
+        LAM: 'metm.png'
     },
     name: {
         MTR: 'Metro',
         MAXI: 'Maxi',
         SUPRC: 'Super C',
         IGA: 'IGA',
-        LOB: 'Loblaws',
+        LOBPQ: 'Loblaws',
         PROV: 'Provigo',
         BRNT: 'Brunet',
         JCP: 'Jean Coutu',
         UNIP: 'Uniprix',
         PXM: 'Proxim',
-        PHX: 'Pharmaprix'
+        PHX: 'Pharmaprix',
+        LAM: 'Aliments M & M'
     },
     bigBanner: {
         MTR: 'METRO',
         MAXI: 'MAXI',
         SUPRC: 'SUPERC',
         IGA: 'IGA',
-        LOB: 'LOBLAWS',
+        LOBPQ: 'LOBLAWS',
         PROV: 'PROVIGO',
         BRNT: 'BRUNET',
         JCP: 'JEAN_COUTU',
         UNIP: 'UNIPRIX',
         PXM: 'PROXIM',
-        PHX: 'PHARMAPRIX'
+        PHX: 'PHARMAPRIX',
+        LAM: 'M_ET_M'
     },
     markets : {
         MTR: 'groceries',
         MAXI: 'groceries',
         SUPRC: 'groceries',
         IGA: 'groceries',
-        LOB: 'groceries',
+        LOBPQ: 'groceries',
         PROV: 'groceries',
         BRNT: 'drugstores',
         JCP: 'drugstores',
         UNIP: 'drugstores',
         PXM: 'drugstores',
-        PHX: 'drugstores'
+        PHX: 'drugstores',
+        LAM: 'groceries'
     },
     getLogo: function(code){
         return 'img/logos/' + this.logo[code];
