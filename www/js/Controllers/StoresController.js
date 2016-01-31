@@ -1,5 +1,5 @@
 angular.module('grocery.controllers')
-.controller('StoresController', function($scope, $stateParams, $ionicLoading, Stores) {
+.controller('StoresController', function($scope, $rootScope, $stateParams, $ionicLoading, Stores) {
     
     $scope.refresh = function(){
         Stores.all().then(function(data) {
@@ -13,7 +13,7 @@ angular.module('grocery.controllers')
         $scope.refresh();
     });
     
-    if (postalCode != ''){
+    if ($rootScope.data.postalCode != ''){
         $ionicLoading.show({ template: 'Loading...' });
         $scope.refresh();
     }
