@@ -1,5 +1,5 @@
 angular.module('grocery.controllers')
-.controller('MainController', function($scope, $http, $rootScope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart, Stores) {
+.controller('MainController', function($scope, $http, $rootScope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart, Stores, $cordovaGeolocation) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
@@ -48,9 +48,11 @@ angular.module('grocery.controllers')
 
   $scope.detectPosition = function(){
     $ionicLoading.show({ template: 'Loading...' });
-    if (navigator.geolocation) {
+    var options = {timeout: 10000, enableHighAccuracy: true};
+    $cordovaGeolocation.getCurrentPosition(options).then($scope.getPostalCode);
+    /*if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition($scope.getPostalCode);
-    }
+    }*/
   }
 
   $scope.setLatLng = function(){
