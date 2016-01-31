@@ -89,8 +89,18 @@
             <label class="item item-input">
                 <input type="text" ng-model="postalCode" placeholder="Format : A1A 1A1">
             </label>
+            
+            <ion-item class="item item-divider">
+              Types de marchés
+            </ion-item>
+            
+            <ion-list>
+                <ion-radio ng-change="setMarket(market)" ng-model="market" ng-value="'groceries'">Épiceries</ion-radio>
+                <ion-radio ng-change="setMarket(market)" ng-model="market" ng-value="'drugstores'">Pharmacies</ion-radio>
+            </ion-list>
+            
             <label class="item">
-                <button class="button button-block button-assertive" ng-click='submitPostalCode(postalCode)' ng-disabled="validatePostalCode(postalCode)" type="submit">Mettre à jour</button>
+                <button class="button button-block button-assertive" ng-click='submitSettings(postalCode)' ng-disabled="validatePostalCode(postalCode)" type="submit">Mettre à jour</button>
             </label>
           </ion-list>
         </ion-content>

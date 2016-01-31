@@ -8,9 +8,10 @@
   <ion-content class="padding">
     <ion-list class="card">
 
-      <ion-item class="item-thumbnail-left item-icon-right">
+      <ion-item class="item-thumbnail-left">
         <img ng-src="{{util.getLogo(product.banner_code)}}">
         <h2>{{product.title_fr}}</h2>
+        <p ng-show="{{product.category_fr}}">Catégorie : {{product.category_fr}}</p>
         <h2 class="assertive">Prix: {{product.price}}</h2>
         <p>{{product.effective_start_date | date:"MM/dd/yyyy"}} à {{product.effective_end_date | date:"MM/dd/yyyy"}}</p>
       </ion-item>
@@ -23,6 +24,10 @@
 
       <ion-item class="item">
         <p><b>Catégorie : {{product.category_fr}}</b></p>
+
+      <ion-item class="item item-icon-right" href="#/tab/item/store/{{nearStore.guid}}">
+        <h2>Disponible chez {{nearStore.name}}</h2>
+        <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
 
       <div class="item item-body">

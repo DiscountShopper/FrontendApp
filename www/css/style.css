@@ -25,16 +25,10 @@
 }
 
 .platform-android .search-box{
-  top: 47px;
+  top: 46px;
   position: absolute;
 }
 
-.platform-android .has-tabs-top{
+.platform-android .searchable .has-tabs-top{
     padding-top: 40px;
 }
-
-bar.bar-custom, bar.bar-custom .bar.bar-assertive, .bar-custom  {
-        border-color: #FF7148;
-        background-color: #FF7148;
-        background-image: linear-gradient(0deg, #FF7148, #FF7148 50%, transparent 50%);
-    }

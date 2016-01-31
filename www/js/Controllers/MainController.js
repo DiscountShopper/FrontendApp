@@ -3,47 +3,49 @@ angular.module('grocery.controllers')
   {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
+    var newMarket = market;
 
-    if (postalCode != '')
-    {
-      $scope.postalCode = postalCode
+    if (postalCode != ''){
+        $scope.postalCode = postalCode
     }
 
-    $ionicModal.fromTemplateUrl('templates/modal-postalcode.html', {
-      scope: $scope,
-      hardwareBackButtonClose: false,
-      backdropClickToClose: false,
-      focusFirstInput: true
-    }).then(function (modal)
-    {
-      $scope.modal = modal;
-      if (postalCode == '')
-      {
-        $scope.modal.show();
-      }
+    $ionicModal.fromTemplateUrl('templates/modal-postalcode.html' , {scope: $scope, hardwareBackButtonClose: false, backdropClickToClose: false, focusFirstInput: true}).then(function (modal) {
+        $scope.modal = modal;
+        if (postalCode == '')
+            $scope.modal.show();
     });
 
-    $scope.validatePostalCode = function (postalCode)
-    {
-      return !regex.test(postalCode);
+    $scope.validatePostalCode = function(postalCode){
+        return !regex.test(postalCode);
     };
 
-    $scope.submitPostalCode = function (code)
-    {
-      $ionicLoading.show({template: 'Loading...'});
-      postalCode = code.toUpperCase();
+    $scope.submitPostalCode = function(code){
+        $ionicLoading.show({ template: 'Loading...' });
+        postalCode = code.toUpperCase();
 
-      if (postalCode.length == 7)
-      {
-        postalCode = postalCode.substring(0, 3) + postalCode.substring(4, 7);
-      }
+        if (postalCode.length == 7){
+            postalCode = postalCode.substring(0,3) + postalCode.substring(4, 7);
+        }
 
-      $scope.postalCode = postalCode
-      localStorage.setItem('postalCode', postalCode);
-      $scope.modal.hide();
-      $scope.$broadcast('refresh');
-      $ionicSideMenuDelegate.toggleLeft(false);
+        $scope.postalCode = postalCode
+        localStorage.setItem('postalCode', postalCode);
+        $scope.modal.hide();
+        $scope.$broadcast('refresh');
+        $ionicSideMenuDelegate.toggleLeft(false);
     };
+
+    $scope.submitSettings = function(code){
+        if (newMarket != market){
+            market = newMarket;
+            localStorage.setItem('market', market);
+        }
+        $scope.submitPostalCode(code);
+    }
+
+    $scope.setMarket = function(item){
+        newMarket = item;
+    }
+
 
     $scope.addCart = function (product)
     {

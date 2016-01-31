@@ -13,7 +13,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
     // for form inputs)
 
     $rootScope.util = window.util;
-    $rootScope.theme = window.theme;
+    $rootScope.market = window.market;
     
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -90,6 +90,16 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
         'tab-item': {
           templateUrl: 'templates/tab-item-detail.html',
           controller: 'ItemController'
+        }
+      }
+    })
+    
+    .state('tab.item-detail-store', {
+      url: '/item/store/:storeId',
+      views: {
+        'tab-item': {
+          templateUrl: 'templates/tab-store-detail.html',
+          controller: 'StoreController'
         }
       }
     })
