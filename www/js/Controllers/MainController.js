@@ -124,4 +124,8 @@ angular.module('grocery.controllers')
       ]
     });
   };
+
+  $scope.getBackDefault = function(href){
+    window.location.href = href;
+  };
 });
