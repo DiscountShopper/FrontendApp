@@ -11,7 +11,7 @@ angular.module('grocery.controllers')
 
   $rootScope.show = function() {
     $ionicLoading.show({
-      template: 'Loading...'
+      template: 'Chargement...'
     });
   };
   $rootScope.hide = function(){
@@ -58,7 +58,7 @@ angular.module('grocery.controllers')
     }
 
   $scope.detectPosition = function(){
-    $ionicLoading.show({ template: 'Loading...' });
+    $ionicLoading.show({ template: 'Chargement...' });
     var options = {timeout: 10000, enableHighAccuracy: true};
             $cordovaGeolocation.getCurrentPosition(options).then(
             $scope.getPostalCode,function(error){
@@ -156,29 +156,13 @@ angular.module('grocery.controllers')
                     pubguid: product.publication_id }
                 })
             };
-
+            $ionicLoading.show({template:"Chargement..."});
             $http.post(baseUrl + "pdf", p ).then(function(pdf){
-                var confirmPopup = $ionicPopup.confirm({
+                $ionicLoading.hide();
+                var alertPopup = $ionicPopup.alert({
                     title: 'Ouverture du cirulaire',
-                    template: 'Voulez-vous ouvrir le circulaire généré?'
+                    template: '<a href="' + pdf.data.url + '" data-ajax="false">Ouvrir le document</a>'
                 });
-
-                confirmPopup.then(function(res) {
-                    if(res) {
-                        if(window.cordova){
-                          window.handleDocumentWithURL(function() {
-                              //Success
-                          }, function(err) {
-                              // An error occurred. Show a message to the user
-                              $ionicLoading.show({ template: 'Une erreur est survenue lors de l\'ouverture du fichier.' });
-                          }, pdf.data.url);
-                        }
-                        else{
-                          window.open(pdf.data.url, '_blank');
-                        }
-                    }
-                });
-
             });
     };
 
