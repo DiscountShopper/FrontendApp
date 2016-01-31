@@ -27,9 +27,9 @@ angular.module('grocery.services')
       },
 
     getRecommended: function(item){
-      return $http.post(baseUrl+ market+ "/recommended/prdoucts/"+postalCode,{key_words:item.key_words}).then(function(recommendedProducts){
-        console.log(recommendedProducts);
-        return recommendedProducts;
+      return $http.post(baseUrl+ market+ "/recommended/products/"+$rootScope.data.postalCode,{key_words:item.key_words}).then(function(recommendedProducts){
+        console.log(recommendedProducts.data);
+        return recommendedProducts.data;
       });
     }
     };

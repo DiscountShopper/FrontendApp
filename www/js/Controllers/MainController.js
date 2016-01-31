@@ -14,7 +14,7 @@ angular.module('grocery.controllers')
         if ($rootScope.data.postalCode == '')
             $scope.modal.show();
     });
-    
+
     $scope.validatePostalCode = function(postalCode){
         return !regex.test(postalCode);
     };
@@ -52,19 +52,20 @@ angular.module('grocery.controllers')
         navigator.geolocation.getCurrentPosition($scope.getPostalCode);
     }
   }
-  
+
   $scope.setLatLng = function(){
       var geocoder= new google.maps.Geocoder();
       geocoder.geocode( { 'address': $rootScope.data.postalCode }, function(results, status) {
       if (status == google.maps.GeocoderStatus.OK) {
          $rootScope.data.latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+        localStorage.setObject("latlng",$rootScope.data.latlng);
         }
       });
   }
-  
+
     if ($rootScope.data.postalCode != '')
         $scope.setLatLng();
-   
+
   $scope.getPostalCode = function(position){
       $ionicLoading.show({ template: 'Loading...' });
       $rootScope.data.latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
@@ -80,7 +81,7 @@ angular.module('grocery.controllers')
         }
     });
   }
-  
+
   $scope.addCart = function (product)
   {
     var productList = localStorage.getObject("cartProducts");
