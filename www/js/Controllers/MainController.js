@@ -1,9 +1,9 @@
 angular.module('grocery.controllers')
-.controller('MainController', function($scope, $stateParams, $rootScope, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart) {
+.controller('MainController', function($scope, $rootScope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
-    
+
     $scope.cartBadge = util.sumCart();
 
     $ionicModal.fromTemplateUrl('templates/modal-postalcode.html' , {scope: $scope, hardwareBackButtonClose: false, backdropClickToClose: false, focusFirstInput: true}).then(function (modal) {
@@ -15,7 +15,7 @@ angular.module('grocery.controllers')
     $scope.validatePostalCode = function(postalCode){
         return !regex.test(postalCode);
     };
-    
+
     $scope.submitPostalCode = function(code){
         $ionicLoading.show({ template: 'Loading...' });
         $rootScope.data.postalCode = code.toUpperCase();
@@ -29,7 +29,7 @@ angular.module('grocery.controllers')
         $scope.$broadcast('refresh');
         $ionicSideMenuDelegate.toggleLeft(false);
     };
-    
+
     $scope.submitSettings = function(code){
         if (newMarket != market){
             market = newMarket;
@@ -37,11 +37,11 @@ angular.module('grocery.controllers')
         }
         $scope.submitPostalCode(code);
     }
-    
+
     $scope.setMarket = function(item){
         newMarket = item;
     }
-    
+
   $scope.detectPosition = function(){
     $ionicLoading.show({ template: 'Loading...' });
     if (navigator.geolocation) {
@@ -76,15 +76,15 @@ angular.module('grocery.controllers')
       var cartProduct = _.find(productList, function(p){ return p.identifier == product.identifier; });
       if (cartProduct)
         cartProduct.CartQuantity++;
-      else 
+      else
         productList.push(product);
       localStorage.setObject("cartProducts", productList);
     }
-    $scope.$broadcast('refreshCart');
+    $rootScope.$broadcast('refreshCart');
     $scope.cartBadge++;
     $ionicListDelegate.closeOptionButtons();
   };
-  
+
   $scope.changeQuantity = function (product, quantity)
   {
     var productList = Cart.all();
@@ -97,16 +97,16 @@ angular.module('grocery.controllers')
     }
     $ionicListDelegate.closeOptionButtons();
   };
-  
+
   $scope.deleteCartMain = function(product){
       $scope.cartBadge -= product.CartQuantity;
   }
-  
-  
+
+
     $scope.redirectToMap = function(){
         $state.go('tab.cart-map')
     };
-  
+
   $scope.showPopupQuantity = function (product)
   {
     $scope.data.cartQuantity = product.CartQuantity;

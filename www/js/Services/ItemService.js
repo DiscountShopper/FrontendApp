@@ -6,8 +6,8 @@ angular.module('grocery.services')
     all: function() {
       return $http.get(baseUrl + market + "/closest/publications/" + $rootScope.data.postalCode).then(function(data){
           var products = [];
-          data.data.forEach(function(e){ 
-              e.items.forEach(function(i){ 
+          data.data.forEach(function(e){
+              e.items.forEach(function(i){
                   i.title_fr = util.toUpper(i.title_fr);
                   i.words = i.key_words ? i.key_words.join(' ') : '';
                   products.push(i);
@@ -25,13 +25,11 @@ angular.module('grocery.services')
           return i;
       });
       },
-      getOne: function (itemId, publicationId)
-      {
-        return $http.get(baseUrl + "products/" + publicationId + "/" + itemId).then(function (product)
-        {
-          product.title_fr = util.toUpper(i.title_fr);
-          return products;
-        });
-      }
+
+    getRecommended: function(item){
+      return $http.post(baseUrl+ "recommended/prdoucts/"+postalCode,{key_words:item.key_words}).then(function(recommendedProducts){
+        return recommendedProducts;
+      });
+    }
     };
   });

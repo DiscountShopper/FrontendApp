@@ -4,11 +4,11 @@ angular.module('grocery.controllers')
     $scope.cartProducts = localStorage.getObject("cartProducts") || [];
     $scope.controller = "cart";
     var itemId = $stateParams.itemId;
-    
+
     $scope.getTotal = function () {
       var total = 0;
       $scope.cartProducts.forEach(function(p){
-          total += p.price.replace(/\D+$/g, "").replace(',', '.') * p.CartQuantity;
+          total += p.price_number * p.CartQuantity;
       });
       $scope.totalPrice = total;
     };
@@ -23,7 +23,7 @@ angular.module('grocery.controllers')
     $scope.$on('refresh', function (event, args){
       $scope.refresh();
     });
-    
+
     $scope.$on("refreshCart", function (){
       $scope.refresh();
     });
