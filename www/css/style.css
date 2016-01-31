@@ -19,3 +19,16 @@
 .search-box{
     width:100%;
 }
+.mini-grocery-logo{
+    width:32px;
+    height:32px;
+}
+
+.platform-android .search-box{
+  top: 47px;
+  position: absolute;
+}
+
+.platform-android .has-tabs-top{
+    padding-top: 40px;
+}

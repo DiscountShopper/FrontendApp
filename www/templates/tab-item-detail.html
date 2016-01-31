@@ -7,24 +7,22 @@
 <ion-view view-title="{{product.title_fr}}">
   <ion-content class="padding">
     <ion-list class="card">
-      <ion-item class="item">
-        <h2>{{product.title_fr}}</h2>
-        <p>{{product.effective_start_date | date:"MM/dd/yyyy"}} à {{product.effective_end_date | date:"MM/dd/yyyy"}}</p>
-      </ion-item>
 
       <ion-item class="item-thumbnail-left item-icon-right">
         <img ng-src="{{util.getLogo(product.banner_code)}}">
-        <h2>Prix: {{product.price}}</h2>
+        <h2>{{product.title_fr}}</h2>
+        <h2 class="assertive">Prix: {{product.price}}</h2>
+        <p>{{product.effective_start_date | date:"MM/dd/yyyy"}} à {{product.effective_end_date | date:"MM/dd/yyyy"}}</p>
+      </ion-item>
+      
+      <ion-item class="item">
+        <p><b>Catégorie : {{product.category_fr}}</b></p>
       </ion-item>
       
       <div class="item item-body">
         <img class="full-image" ng-src="{{product.image}}">
       </div>
       
-      <ion-item class="item item-body">
-        <h2>Catégorie</h2>
-        <p><b>{{product.category_fr}}</b></p>
-      </ion-item>
     </ion-list>
   </ion-content>
 </ion-view>

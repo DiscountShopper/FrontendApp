@@ -5,9 +5,15 @@ angular.module('grocery.services')
   var products = [];
   return {
     all: function() {
-      return $http.get(baseUrl + "publications/MAXI/83bb2f98-3bd6-488e-843d-b9fb977e4f11").then(function(data){
-          data.data[0].items.forEach(function(i){ i.title_fr = util.toUpper(i.title_fr); });
-          products = data.data[0].items;
+      return $http.get(baseUrl + "closest/publications/" + postalCode).then(function(data){
+          products = [];
+          data.data.forEach(function(e){ 
+              e.items.forEach(function(i){ 
+                  i.title_fr = util.toUpper(i.title_fr);
+                  products.push(i);
+              });
+          });
+          products = _.sortBy(products, 'category_fr');
           return products;
       });
     },

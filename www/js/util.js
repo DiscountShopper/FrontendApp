@@ -4,7 +4,16 @@ var util = {
         MAXI: 'maxi.png',
         SUPRC: 'superc.png',
         IGA: 'iga.png',
-        LOB: 'loblaws.png'
+        LOB: 'loblaws.png',
+        PROV: 'provigo.png'
+    },
+    name: {
+        MTR: 'Metro',
+        MAXI: 'Maxi',
+        SUPRC: 'Super C',
+        IGA: 'IGA',
+        LOB: 'Loblaws',
+        PROV: 'Provigo'
     },
     getLogo: function(code){
         return 'img/logos/' + this.logo[code];
