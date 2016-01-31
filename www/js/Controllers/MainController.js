@@ -156,7 +156,17 @@ angular.module('grocery.controllers')
 
                 confirmPopup.then(function(res) {
                     if(res) {
-                        window.open(pdf.data.url, '_system', 'location=no');
+                        if(window.cordova){
+                          window.handleDocumentWithURL(function() {
+                              //Success
+                          }, function(err) {
+                              // An error occurred. Show a message to the user
+                              $ionicLoading.show({ template: 'Une erreur est survenue lors de l\'ouverture du fichier.' });
+                          }, pdf.data.url);
+                        }
+                        else{
+                          window.open(pdf.data.url, '_blank');
+                        }
                     }
                 });
 
