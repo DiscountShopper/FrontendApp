@@ -3,7 +3,7 @@ angular.module('grocery.controllers')
     
     $scope.refresh = function(){
         Items.all().then(function(data) {
-            $scope.stores = data.items;
+            $scope.products = data;
             $scope.$broadcast('scroll.refreshComplete');
             $ionicLoading.hide();
         });

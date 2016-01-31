@@ -12,18 +12,7 @@ angular.module('grocery', ['ionic', 'grocery.controllers', 'grocery.services'])
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
 
-    $rootScope.util = {
-        logo: {
-            MTR: 'metro.png',
-            MAXI: 'maxi.png',
-            SUPRC: 'superc.png',
-            IGA: 'iga.png',
-            LOB: 'loblaws.png'
-        },
-        getLogo: function(code){
-            return 'img/logos/' + this.logo[code];
-        }
-    }
+    $rootScope.util = window.util;
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
       cordova.plugins.Keyboard.disableScroll(true);

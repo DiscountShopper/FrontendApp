@@ -23,8 +23,8 @@ angular.module('grocery.controllers')
     {
       $scope.product = Items.get(itemId);
       var pattern = new RegExp(/\d+/);
-      $scope.product.EffectiveStartDate = pattern.exec($scope.product.EffectiveStartDate)[0];
-      $scope.product.EffectiveEndDate = pattern.exec($scope.product.EffectiveEndDate)[0];
+      $scope.product.effective_start_date = pattern.exec($scope.product.effective_start_date)[0];
+      $scope.product.effective_end_date = pattern.exec($scope.product.effective_end_date)[0];
     }
 
     $scope.deleteCart = function (product)
