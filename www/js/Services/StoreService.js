@@ -2,8 +2,8 @@ angular.module('grocery.services')
 .factory('Stores', function($http) {
   return {
     all: function () {
-        return $http.get(baseUrl + market + '/stores/' + postalCode).then(function(data){ 
-            return _.sortBy(data.data, 'distance');; 
+        return $http.get(baseUrl + market + '/stores/' + postalCode).then(function(data){
+            return _.sortBy(data.data, 'distance');;
          });
     },
     get: function (storeId) {
@@ -19,7 +19,7 @@ angular.module('grocery.services')
     },
     getByBanner: function(banner_code){
         return $http.get(baseUrl + market + '/stores/' + banner_code + '/' + postalCode).then(function(data){
-            return _.sortBy(data.data, 'distance'); 
+            return _.sortBy(data.data, 'distance');
         });
     },
     getByMarket: function(current_market){
