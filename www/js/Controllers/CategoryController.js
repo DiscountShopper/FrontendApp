@@ -1,14 +1,16 @@
 angular.module('grocery.controllers')
   .controller('CategoryController', function ($scope, $stateParams, Categories, $ionicLoading, Items)
   {
+    $scope.title='Catégorie';
     var itemId = $stateParams.itemId;
     $scope.refresh = function ()
     {
       var categoryId = $stateParams.categoryId;
       Categories.allFromCategory(categoryId).then(function (data)
       {
-        console.log(data);
         $scope.products = data;
+        console.log(data);
+        $scope.title = $scope.products[0].category_fr;
         $ionicLoading.hide();
       });
     };
@@ -21,15 +23,15 @@ angular.module('grocery.controllers')
     }
     else
     {
-
-      $scope.product = Items.getOne(itemId, $stateParams.publicationId);
-      console.log($scope.product);
-      var pattern = new RegExp(/\d+/);
-      $scope.product.effective_start_date = pattern.exec($scope.product.effective_start_date)[0];
-      $scope.product.effective_end_date = pattern.exec($scope.product.effective_end_date)[0];
+      Items.getOne(itemId, $stateParams.publicationId).then(function (product)
+      {
+        $scope.product = product;
+        $scope.title = $scope.product.category_fr;
+        var pattern = new RegExp(/\d+/);
+        $scope.product.effective_start_date = pattern.exec($scope.product.effective_start_date)[0];
+        $scope.product.effective_end_date = pattern.exec($scope.product.effective_end_date)[0];
+      });
     }
-
-
 
     $scope.$on('refresh', function (event, args)
     {

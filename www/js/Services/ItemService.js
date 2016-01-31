@@ -23,16 +23,17 @@ angular.module('grocery.services')
       {
         return _.find(products, function (p)
         {
-          return p.id == itemId;
+          return p.identifier == itemId;
         });
       },
 
       getOne: function (itemId, publicationId)
       {
-        return $http.get(baseUrl + "products/" + publicationId + "/" + itemId).then(function (product)
+        return $http.get(baseUrl + "groceries/products/" + publicationId + "/" + itemId).then(function (product)
         {
-          product.title_fr = util.toUpper(i.title_fr);
-          return products;
+          product = product.data;
+          product.title_fr = util.toUpper(product.title_fr);
+          return product;
         });
       },
     };

@@ -1,18 +1,24 @@
 angular.module('grocery.controllers')
   .controller('CartController', function ($scope, $stateParams, $ionicLoading, Cart)
   {
-    $scope.productList = localStorage.getObject("cartProducts");
+    if ($scope.productList === undefined)
+    {
+    }
 
+    $scope.productList = localStorage.getObject("cartProducts");
     $scope.getTotal = function ()
     {
       var total = 0;
-      for (var i = 0; i < $scope.productList.length; i++)
+      if ($scope.productList != null && $scope.productList.length > 0)
       {
-        var product = $scope.productList[i];
-        var price = product.price.replace(/\D+$/g, "").replace(',', '.');
-        console.log(price);
+        for (var i = 0; i < $scope.productList.length; i++)
+        {
+          var product = $scope.productList[i];
+          var price = product.price.replace(/\D+$/g, "").replace(',', '.');
+          console.log(price);
 
-        total += (price * product.CartQuantity);
+          total += (price * product.CartQuantity);
+        }
       }
 
       $scope.totalPrice = total;
@@ -43,7 +49,7 @@ angular.module('grocery.controllers')
     }
     else
     {
-      $scope.product = _.find($scope.productList, {id: itemId});
+      $scope.product = _.find($scope.productList, {identifier: itemId});
       var pattern = new RegExp(/\d+/);
       $scope.product.effective_start_date = pattern.exec($scope.product.effective_start_date)[0];
       $scope.product.effective_end_date = pattern.exec($scope.product.effective_end_date)[0];
@@ -53,13 +59,12 @@ angular.module('grocery.controllers')
     {
       if ($scope.productList != null && $scope.productList.length > 0)
       {
-        var cartProduct = _.find($scope.productList, {id: product.id});
+        $scope.productList = localStorage.getObject("cartProducts");
+        var cartProduct = _.find($scope.productList, {identifier: product.identifier});
         console.log(cartProduct);
-        console.log(cartProduct.id);
-
         if (cartProduct.CartQuantity == 1)
         {
-          $scope.productList = _.without($scope.productList, _.findWhere($scope.productList, {id: product.id}));
+          $scope.productList = _.without($scope.productList, _.findWhere($scope.productList, {identifier: product.identifier}));
 
           localStorage.setObject("cartProducts", $scope.productList);
         }
@@ -72,11 +77,6 @@ angular.module('grocery.controllers')
         $scope.cartProducts = $scope.productList;
       }
     };
-
-
-
-
-
 
     $scope.$on("refreshCart", function ()
     {

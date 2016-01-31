@@ -14,15 +14,21 @@
         <h2 class="assertive">Prix: {{product.price}}</h2>
         <p>{{product.effective_start_date | date:"MM/dd/yyyy"}} à {{product.effective_end_date | date:"MM/dd/yyyy"}}</p>
       </ion-item>
-      
+
+      <ion-item class="item">
+        <button class="button button-full button-balanced">
+          Ajouter
+        </button>
+      </ion-item>
+
       <ion-item class="item">
         <p><b>Catégorie : {{product.category_fr}}</b></p>
       </ion-item>
-      
+
       <div class="item item-body">
         <img class="full-image" ng-src="{{product.image}}">
       </div>
-      
+
     </ion-list>
   </ion-content>
 </ion-view>

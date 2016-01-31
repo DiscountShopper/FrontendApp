@@ -3,9 +3,9 @@ angular.module('grocery.services')
   var stores = [];
   return {
     all: function () {
-        return $http.get(baseUrl + 'stores/' + postalCode).then(function(data){ 
+        return $http.get(baseUrl + 'groceries/stores/' + postalCode).then(function(data){
             stores = _.sortBy(data.data, 'distance');
-            return stores; 
+            return stores;
          });
     },
     get: function (storeId) {
