@@ -17,6 +17,7 @@ angular.module('grocery.services')
           return products;
       });
     },
+
     get: function(itemId) {
       return _.find(products, function(p){ return p.id == itemId; });
     }
