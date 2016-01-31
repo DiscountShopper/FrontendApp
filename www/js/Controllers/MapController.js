@@ -6,6 +6,7 @@ angular.module('grocery.controllers')
     var stores = [];
     var i = 0;
     $scope.letter = 'A';
+    $scope.gazPrice = "";
     var latlng = localStorage.getObject("latlng");
     products.forEach(function (product)
     {
@@ -154,7 +155,8 @@ angular.module('grocery.controllers')
           $scope.carDistance += element.distance.value;
           $scope.carTime += element.duration.value;
         });
-        $scope.carDistance = $scope.carDistance/1000+"km";
+        var distance = $scope.carDistance/1000;
+        $scope.carDistance = distance+"km";
         $scope.carTime = moment.duration($scope.carTime/60, "minutes").humanize();
         extendValidStores(elements);
       }
@@ -188,6 +190,7 @@ angular.module('grocery.controllers')
         $scope.bicycleTime = moment.duration($scope.bicycleTime/60, "minutes").humanize();
         //extendValidStores(elements);
       }
+
     }
 
     storeTypes.forEach(function (type)
