@@ -1,12 +1,21 @@
 angular.module('grocery.controllers')
-  .controller('CartController', function ($scope, $stateParams, Cart, Items)
+  .controller('CartController', function ($scope, $stateParams, $ionicLoading, Cart, Items)
   {
+    $scope.refresh = function(){
+        $scope.cartProducts = Cart.all();
+        $scope.$broadcast('scroll.refreshComplete');
+        $ionicLoading.hide();
+    }
+    
+    $scope.$on('refresh', function(event, args) {
+        $scope.refresh();
+    });
+    
     var itemId = $stateParams.itemId;
     console.log(itemId);
-    if (itemId === undefined)
+    if (itemId === undefined && postalCode != '')
     {
-      $scope.cartProducts = Cart.all();
-      console.log($scope.cartProducts);
+      $scope.refresh();
       $scope.controller = "cart";
       $scope.isNested = false;
     }
@@ -42,6 +51,6 @@ angular.module('grocery.controllers')
 
     $scope.$on("refreshCart", function ()
     {
-      $scope.cartProducts = Cart.all();
+      $scope.refresh();
     });
   });
