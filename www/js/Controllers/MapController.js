@@ -14,12 +14,6 @@ angular.module('grocery.controllers')
         }
     });
 
-    $scope.nextChar = function() {
-        var letter = $scope.letter.charCodeAt(0);
-        $scope.letter = String.fromCharCode(letter + 1);
-        return $scope.letter;
-    }
-
     $scope.loadMap = function(){
         $scope.validStores = [];
         products.forEach(function(product){

@@ -1,5 +1,5 @@
 angular.module('grocery.controllers')
-.controller('MainController', function($scope, $rootScope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart) {
+.controller('MainController', function($scope, $http, $rootScope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart, Stores) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
@@ -119,8 +119,70 @@ angular.module('grocery.controllers')
   }
 
     $scope.redirectToMap = function(){
-        $state.go('tab.cart-map')
+        if (Cart.all().length > 0)
+            $state.go('tab.cart-map')
     };
+    
+    $scope.flyerQuery = function(stores, products){
+        var validStores = {};
+        
+        products.forEach(function(product){
+            var store = _.find(stores, function(s){ return s.banner_code == product.banner_code; });
+            if (!validStores[store.banner_code]){
+                validStores[store.banner_code] = store;
+            }
+        });
+            var p = {
+                products:products.map(function(product){
+                    return  { banner_code: util.bigBanner[product.banner_code],
+                    pguid: product.identifier,
+                    sguid: validStores[product.banner_code].guid,
+                    pubguid: product.publication_id }
+                })
+            };
+            
+            $http.post(baseUrl + "pdf", p ).then(function(pdf){
+                var confirmPopup = $ionicPopup.confirm({
+                    title: 'Ouverture du cirulaire',
+                    template: 'Voulez-vous ouvrir le circulaire généré?'
+                });
+
+                confirmPopup.then(function(res) {
+                    if(res) {
+                        window.open(pdf.data.url, '_system', 'location=no');
+                    }
+                });
+                
+            });
+    };
+    
+    $scope.getFlyer = function(){
+        products = Cart.all();
+        if (products.length > 0){
+            var storeTypes = [];
+            var stores = [];
+            var i = 0;
+            $scope.letter = 'A';
+
+            products.forEach(function(product){
+                var storeType = util.getMarketFromBanner(product.banner_code);
+                if (storeTypes.indexOf(storeType) == -1){
+                    storeTypes.push(storeType);
+                }
+            });
+
+            storeTypes.forEach(function(type){
+                Stores.getByMarket(type).then(function(data){
+                    stores = stores.concat(data);
+                    i++;
+                    if (i == storeTypes.length){
+                        $scope.flyerQuery(stores, products);
+                    }
+                });
+            });
+         }
+    };
+    
 
   $scope.showPopupQuantity = function (product)
   {
