@@ -11,10 +11,7 @@ angular.module('grocery.controllers')
             $scope.nearStore = data[0];
 
 
-          /*Items.getRecommended($scope.product).then(function(recommendedProducts){
-            $scope.recommendedProducts = recommendedProducts;
-          });*/
-          Items.all().then(function(recommendedProducts){
+          Items.getRecommended($scope.product).then(function(recommendedProducts){
             $scope.recommendedProducts = recommendedProducts;
           });
         });
