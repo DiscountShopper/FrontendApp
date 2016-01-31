@@ -33,7 +33,7 @@ angular.module('grocery.controllers')
         else
         {
           cartProduct.CartQuantity--;
-          _.extend(_.findWhere(productList, { CartQuantity: cartProduct.CartQuantity }), cartProduct);
+          _.extend(_.findWhere(productList, {CartQuantity: cartProduct.CartQuantity}), cartProduct);
           localStorage.setObject("cartProducts", productList);
         }
         $scope.cartProducts = productList;
