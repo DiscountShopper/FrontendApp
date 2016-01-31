@@ -19,6 +19,7 @@
         <img ng-src="{{product.image.indexOf('noimage') == -1 ? product.image : util.getLogo(product.banner_code)}}">
         <h2>{{product.title_fr}}</h2>
         <p>{{product.price}} {{product.price_unit}}</p>
+        <div class="hide">{{product.words}}</div>
         <p><img ng-src="{{util.getLogo(product.banner_code)}}" class="mini-grocery-logo"></p>
         <ion-option-button class="button-positive ion-plus-round" ng-click="addCart(product);">Ajouter</ion-option-button>
         <ion-option-button class="button-positive ion-edit" ng-click="showPopupQuantity(product);">Quantité</ion-option-button>

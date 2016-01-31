@@ -1,3 +1,13 @@
+var theme = localStorage.getItem('theme') || 'GROC';
+var themes = {
+    GROC: 'assertive',
+    ELEC: 'calm',
+    DRUG: 'royal',
+    HOME: 'balanced'
+};
+
+var changeColor = true;
+
 var util = {
     logo: {
         MTR: 'metro.png',
@@ -20,5 +30,8 @@ var util = {
     },
     toUpper : function(str){
         return str.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+    },
+    getTheme : function(prefix){
+        return prefix + themes[theme];
     }
 }
