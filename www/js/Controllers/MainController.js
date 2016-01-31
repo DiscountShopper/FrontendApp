@@ -1,5 +1,5 @@
 angular.module('grocery.controllers')
-.controller('MainController', function($scope, $stateParams, $ionicModal, $ionicSideMenuDelegate, $ionicLoading) {
+.controller('MainController', function($scope, $stateParams, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
 
@@ -45,7 +45,7 @@ angular.module('grocery.controllers')
     }
     else
     {
-      var cartProduct = _.find(productList, {Id: product.Id});
+      var cartProduct = _.find(productList, {id: product.id});
       console.log(cartProduct);
       if (cartProduct !== undefined)
       {
@@ -59,6 +59,54 @@ angular.module('grocery.controllers')
         localStorage.setObject("cartProducts", productList);
       }
     }
+    console.log(productList);
     $scope.$broadcast('refreshCart');
+  };
+
+  $scope.data = {};
+
+  $scope.changeQuantity = function (product, quantity)
+  {
+    var productList = localStorage.getObject("cartProducts");
+    if (productList != null && productList.length > 0)
+    {
+      var cartProduct = _.find(productList, {id: product.id});
+      console.log(cartProduct);
+      cartProduct.CartQuantity = quantity;
+      _.extend(_.findWhere(productList, {CartQuantity: cartProduct.CartQuantity}), cartProduct);
+      localStorage.setObject("cartProducts", productList);
+      $scope.$broadcast('refreshCart');
+    }
+  };
+
+  $scope.showPopupQuantity = function (product)
+  {
+    console.log(product)
+    $ionicPopup.show({
+      template: '<input type="number" ng-model="data.cartQuantity">',
+      title: 'Entrer la quantité de votre item',
+      subTitle: 'Entrer un nombre',
+      scope: $scope,
+      buttons: [
+        {text: 'Annuler'},
+        {
+          text: '<b>Enregistrer</b>',
+          type: 'button-positive',
+          onTap: function (quantity)
+          {
+            if (!$scope.data.cartQuantity)
+            {
+              //don't allow the user to close unless he enters wifi password
+              quantity.preventDefault();
+            }
+            else
+            {
+              $scope.changeQuantity(product, $scope.data.cartQuantity);
+              return $scope.data.cartQuantity;
+            }
+          }
+        }
+      ]
+    });
   };
 });
