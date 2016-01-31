@@ -2,11 +2,10 @@ angular.module('grocery.services')
 
 .factory('Items', function($http, $ionicLoading, $ionicPopup) {
   // Might use a resource here that returns a JSON array
-  var products = [];
   return {
     all: function() {
-      return $http.get(baseUrl + "groceries/closest/publications/" + postalCode).then(function(data){
-          products = [];
+      return $http.get(baseUrl + market + "/closest/publications/" + postalCode).then(function(data){
+          var products = [];
           data.data.forEach(function(e){ 
               e.items.forEach(function(i){ 
                   i.title_fr = util.toUpper(i.title_fr);
@@ -14,13 +13,18 @@ angular.module('grocery.services')
                   products.push(i);
               });
           });
-          products = _.sortBy(products, 'category_fr');
-          return products;
+          return _.sortBy(products, 'category_fr');
       });
     },
 
-    get: function(itemId) {
-      return _.find(products, function(p){ return p.identifier == itemId; });
+    get: function(itemId, publicationId) {
+        
+        return $http.get(baseUrl + market + "/products/" + publicationId + '/' + itemId).then(function(data){
+          var i = data.data;
+          i.title_fr = util.toUpper(i.title_fr);
+          i.words = i.key_words ? i.key_words.join(' ') : '';
+          return i;
+      });
     }
   };
 });

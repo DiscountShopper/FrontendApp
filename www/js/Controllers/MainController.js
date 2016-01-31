@@ -2,7 +2,8 @@ angular.module('grocery.controllers')
 .controller('MainController', function($scope, $stateParams, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup) {
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
-
+    var newMarket = market;
+    
     if (postalCode != ''){
         $scope.postalCode = postalCode
     }
@@ -16,7 +17,7 @@ angular.module('grocery.controllers')
     $scope.validatePostalCode = function(postalCode){
         return !regex.test(postalCode);
     };
-
+    
     $scope.submitPostalCode = function(code){
         $ionicLoading.show({ template: 'Loading...' });
         postalCode = code.toUpperCase();
@@ -31,6 +32,19 @@ angular.module('grocery.controllers')
         $scope.$broadcast('refresh');
         $ionicSideMenuDelegate.toggleLeft(false);
     };
+    
+    $scope.submitSettings = function(code){
+        if (newMarket != market){
+            market = newMarket;
+            localStorage.setItem('market', market);
+        }
+        $scope.submitPostalCode(code);
+    }
+    
+    $scope.setMarket = function(item){
+        newMarket = item;
+    }
+    
 
   $scope.addCart = function (product)
   {

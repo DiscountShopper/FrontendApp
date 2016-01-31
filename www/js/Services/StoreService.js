@@ -1,15 +1,20 @@
 angular.module('grocery.services')
 .factory('Stores', function($http) {
-  var stores = [];
   return {
     all: function () {
-        return $http.get(baseUrl + 'stores/' + postalCode).then(function(data){ 
-            stores = _.sortBy(data.data, 'distance');
-            return stores; 
+        return $http.get(baseUrl + market + '/stores/' + postalCode).then(function(data){ 
+            return _.sortBy(data.data, 'distance');; 
          });
     },
     get: function (storeId) {
-        return _.find(stores, function(x){ return x.guid == storeId; });
+        return $http.get(baseUrl + market + '/stores/' + postalCode).then(function(data){
+            return _.find(data.data, function(x){ return x.guid == storeId; });
+        });
+    },
+    getByBanner: function(banner_code){
+        return $http.get(baseUrl + market + '/stores/' + banner_code + '/' + postalCode).then(function(data){
+            return _.sortBy(data.data, 'distance'); 
+        });
     }
   };
 });
