@@ -9,6 +9,15 @@ angular.module('grocery.controllers')
         postalCode: localStorage.getItem("postalCode") || ''
     };
 
+  $rootScope.show = function() {
+    $ionicLoading.show({
+      template: 'Loading...'
+    });
+  };
+  $rootScope.hide = function(){
+    $ionicLoading.hide();
+  };
+
     $scope.cartBadge = util.sumCart();
 
     $ionicModal.fromTemplateUrl('templates/modal-postalcode.html' , {scope: $scope, hardwareBackButtonClose: false, backdropClickToClose: false, focusFirstInput: true}).then(function (modal) {
@@ -22,7 +31,7 @@ angular.module('grocery.controllers')
     };
 
     $scope.submitPostalCode = function(code){
-        $ionicLoading.show({ template: 'Loading...' });
+      $rootScope.show();
         $rootScope.data.postalCode = code.toUpperCase();
 
         if ($rootScope.data.postalCode.length == 7){
@@ -205,7 +214,7 @@ angular.module('grocery.controllers')
   {
     $scope.data.cartQuantity = product.CartQuantity;
     $ionicPopup.show({
-      template: '<input type="number" ng-model="data.cartQuantity">',
+      template: '<input type="number" min="1" ng-model="data.cartQuantity">',
       title: 'Entrer la quantité de votre item',
       subTitle: 'Entrer un nombre',
       scope: $scope,
