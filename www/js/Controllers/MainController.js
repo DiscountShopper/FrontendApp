@@ -1,7 +1,9 @@
 angular.module('grocery.controllers')
 .controller('MainController', function($scope, $http, $rootScope, $stateParams, $state, $ionicModal, $ionicSideMenuDelegate, $ionicLoading, $ionicPopup, $ionicListDelegate, Cart, Stores, $cordovaGeolocation) {
 
-    var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
+  moment.locale('fr');
+
+  var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
     $rootScope.data = {
         postalCode: localStorage.getItem("postalCode") || ''
