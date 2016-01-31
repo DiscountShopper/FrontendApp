@@ -25,14 +25,7 @@ angular.module('grocery.services')
           return i;
       });
       },
-      getOne: function (itemId, publicationId)
-      {
-        return $http.get(baseUrl + "products/" + publicationId + "/" + itemId).then(function (product)
-        {
-          product.title_fr = util.toUpper(product.title_fr);
-          return product;
-        });
-      },
+
     getRecommended: function(item){
       return $http.post(baseUrl+ "recommended/prdoucts/"+postalCode,{key_words:item.key_words}).then(function(recommendedProducts){
         return recommendedProducts;

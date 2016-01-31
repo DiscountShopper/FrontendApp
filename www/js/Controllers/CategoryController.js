@@ -23,7 +23,7 @@ angular.module('grocery.controllers')
     }
     else
     {
-      Items.getOne(itemId, $stateParams.publicationId).then(function (product)
+      Items.get(itemId, $stateParams.publicationId).then(function (product)
       {
         $scope.product = product;
         $scope.title = $scope.product.category_fr;
