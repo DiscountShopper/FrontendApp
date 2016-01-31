@@ -3,7 +3,8 @@
       
     <ion-refresher pulling-text="Pull to refresh..." on-refresh="refresh()"></ion-refresher>
     <ion-list>
-      <ion-item class="item-thumbnail-left item-icon-right" collection-repeat="store in stores" type="item-text-wrap" href="#/tab/store/{{store.guid}}">
+      <ion-item class="item-thumbnail-left item-icon-right" collection-repeat="store in stores" type="item-text-wrap" href="#/tab/store/{{store.guid}}"
+      item-height="106px" item-width="100%">
         <img ng-src="{{util.getLogo(store.banner_code)}}">
         <h2>{{store.name}}</h2>
         <p> {{store.address}}{{store.address ? ',' : ''}} {{store.city}}</p>

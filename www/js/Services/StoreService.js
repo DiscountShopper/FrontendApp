@@ -26,6 +26,16 @@ angular.module('grocery.services')
         return $http.get(baseUrl + current_market + '/stores/' + $rootScope.data.postalCode).then(function(data){
             return _.sortBy(data.data, 'distance'); 
         });
+    },
+    getNearestMarkets: function(){
+        return $http.get(baseUrl + market + '/stores/' + $rootScope.data.postalCode).then(function(data){
+            var markets = {};
+            _.sortBy(data.data, 'distance').forEach(function(m){
+                if (!markets[m.banner_code])
+                    markets[m.banner_code] = m;
+            });
+            return markets; 
+        });
     }
   };
 });

@@ -9,11 +9,15 @@
       <ion-item class="item-avatar item-icon-right" ng-show="cartProducts == null || cartProducts.lenght == 0" type="item-text-wrap"">
         <h2>Votre panier est vide.</h2>
       </ion-item>
-      <ion-item class="item-avatar item-icon-right" collection-repeat="product in cartProducts" ng-show="cartProducts!=null" type="item-text-wrap"
-                href="#/tab/{{controller}}/{{isNested?product.category_id+'/':''}}{{product.identifier}}/{{product.publication_id}}" on-hold="showPopupQuantity(product);" item-height="80px" item-width="100%">
-        <img ng-src="{{product.image}}">
+     
+      <ion-item class="item-thumbnail-left item-icon-right" collection-repeat="product in cartProducts" type="item-text-wrap"
+                href="#/tab/{{controller}}/{{isNested?product.category_id+'/':''}}{{product.identifier}}/{{product.publication_id}}" 
+                on-hold="showPopupQuantity(product);" item-height="106px" item-width="100%">
+
+        <img ng-src="{{product.image.indexOf('noimage') == -1 ? product.image : util.getLogo(product.banner_code)}}">
         <h2>{{product.title_fr}}</h2>
-        <p>{{product.price}}</p>
+        <p>{{product.price}} {{product.price_unit}}</p>
+        <p><img ng-src="{{util.getLogo(product.banner_code)}}" class="mini-grocery-logo"></p>
         <span class="badge-cart badge badge-assertive">{{product.CartQuantity}}</span>
         <ion-option-button class="button-assertive ion-close-round" ng-click="deleteCart(product);deleteCartMain(product);"></ion-option-button>
         <ion-option-button class="button-energized ion-edit" ng-click="showPopupQuantity(product);"></ion-option-button>

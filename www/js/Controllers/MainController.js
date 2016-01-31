@@ -3,6 +3,9 @@ angular.module('grocery.controllers')
 
     var regex = new RegExp(/^[ABCEGHJKLMNPRSTVXY]\d[ABCEGHJKLMNPRSTVWXYZ]( )?\d[ABCEGHJKLMNPRSTVWXYZ]\d$/i);
     var newMarket = market;
+    $rootScope.data = {
+        postalCode: localStorage.getItem("postalCode") || ''
+    };
 
     $scope.cartBadge = util.sumCart();
 
@@ -11,7 +14,7 @@ angular.module('grocery.controllers')
         if ($rootScope.data.postalCode == '')
             $scope.modal.show();
     });
-
+    
     $scope.validatePostalCode = function(postalCode){
         return !regex.test(postalCode);
     };
@@ -28,6 +31,7 @@ angular.module('grocery.controllers')
         $scope.modal.hide();
         $scope.$broadcast('refresh');
         $ionicSideMenuDelegate.toggleLeft(false);
+        $scope.setLatLng();
     };
 
     $scope.submitSettings = function(code){
@@ -49,11 +53,23 @@ angular.module('grocery.controllers')
     }
   }
   
+  $scope.setLatLng = function(){
+      var geocoder= new google.maps.Geocoder();
+      geocoder.geocode( { 'address': $rootScope.data.postalCode }, function(results, status) {
+      if (status == google.maps.GeocoderStatus.OK) {
+         $rootScope.data.latlng = {lat: results[0].geometry.location.lat(), lng: results[0].geometry.location.lng()};
+        }
+      });
+  }
+  
+    if ($rootScope.data.postalCode != '')
+        $scope.setLatLng();
+   
   $scope.getPostalCode = function(position){
       $ionicLoading.show({ template: 'Loading...' });
-      var latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
-      var geocoder= new google.maps.Geocoder()
-      geocoder.geocode({'location': latlng}, function(results, status) {
+      $rootScope.data.latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
+      var geocoder= new google.maps.Geocoder();
+      geocoder.geocode({'location': $rootScope.data.latlng}, function(results, status) {
         $ionicLoading.hide();
         if (status === google.maps.GeocoderStatus.OK) {
             if (results[2]) {
