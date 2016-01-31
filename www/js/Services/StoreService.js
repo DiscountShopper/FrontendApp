@@ -3,7 +3,7 @@ angular.module('grocery.services')
   var stores = [];
   return {
     all: function () {
-        return $http.get('http://162.243.54.4:3000/api/stores/' + postalCode).then(function(data){ 
+        return $http.get(baseUrl + 'stores/' + postalCode).then(function(data){ 
             stores = _.sortBy(data.data, 'distance');
             return stores; 
          });

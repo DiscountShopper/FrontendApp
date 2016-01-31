@@ -2,9 +2,11 @@ angular.module('grocery.controllers')
 .controller('ItemsController', function($scope, $stateParams, $ionicLoading, Items) {
     
     $scope.refresh = function(){
-        $scope.products = Items.all();
-        $scope.$broadcast('scroll.refreshComplete');
-        $ionicLoading.hide();
+        Items.all().then(function(data) {
+            $scope.stores = data.items;
+            $scope.$broadcast('scroll.refreshComplete');
+            $ionicLoading.hide();
+        });
     }
     
     $scope.$on('refresh', function(event, args) {

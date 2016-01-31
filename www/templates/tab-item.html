@@ -5,8 +5,8 @@
       <ion-item class="item-avatar item-icon-right" collection-repeat="product in products" type="item-text-wrap"
                 href="#/tab/{{controller}}/{{isNested?product.CategoryId+'/':''}}{{product.Id}}" ng-click="selectOne()">
         <img ng-src="{{product.ImageURL}}">
-        <h2>{{product.ProductTitle}}</h2>
-        <p>{{product.Price}}</p>
+        <h2>{{product.title_fr}}</h2>
+        <p>{{product.price}}/{{product.price_unit}}</p>
         <ion-option-button class="button-positive ion-plus-round" ng-click="addCart(product);">Ajouter</ion-option-button>
         <i class="icon ion-chevron-right icon-accessory"></i>
       </ion-item>
