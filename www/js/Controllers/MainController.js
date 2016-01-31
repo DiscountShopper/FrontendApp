@@ -102,7 +102,6 @@ angular.module('grocery.controllers')
       $scope.cartBadge -= product.CartQuantity;
   }
 
-
     $scope.redirectToMap = function(){
         $state.go('tab.cart-map')
     };
