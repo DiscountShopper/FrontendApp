@@ -9,14 +9,12 @@ angular.module('grocery.controllers')
       Categories.allFromCategory(categoryId).then(function (data)
       {
         $scope.products = data;
-        console.log(data);
         $scope.title = $scope.products[0].category_fr;
         $ionicLoading.hide();
       });
     };
     if (itemId === undefined)
     {
-      console.log("no item");
       $scope.refresh();
       $scope.controller = "category";
       $scope.isNested = true;
