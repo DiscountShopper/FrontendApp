@@ -47,13 +47,10 @@ angular.module('grocery.controllers')
     }
 
   $scope.detectPosition = function(){
-    //$ionicLoading.show({ template: 'Loading...' });
+    $ionicLoading.show({ template: 'Loading...' });
     var options = {timeout: 10000, enableHighAccuracy: true};
             $cordovaGeolocation.getCurrentPosition(options).then(
-            function(position){
-                $ionicLoading.show({ template: JSON.stringify(position) });
-
-            },function(error){
+            $scope.getPostalCode,function(error){
                 $ionicLoading.show({ template: JSON.stringify(error) });
             });
     /*if (navigator.geolocation) {
@@ -75,7 +72,6 @@ angular.module('grocery.controllers')
         $scope.setLatLng();
 
   $scope.getPostalCode = function(position){
-      $ionicLoading.show({ template: 'Loading...' });
       $rootScope.data.latlng = {lat: position.coords.latitude, lng: position.coords.longitude};
       var geocoder= new google.maps.Geocoder();
       geocoder.geocode({'location': $rootScope.data.latlng}, function(results, status) {
