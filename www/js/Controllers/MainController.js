@@ -60,10 +60,7 @@ angular.module('grocery.controllers')
   $scope.detectPosition = function(){
     $ionicLoading.show({ template: 'Chargement...' });
     var options = {timeout: 10000, enableHighAccuracy: true};
-            $cordovaGeolocation.getCurrentPosition(options).then(
-            $scope.getPostalCode,function(error){
-                $ionicLoading.show({ template: JSON.stringify(error) });
-            });
+    $cordovaGeolocation.getCurrentPosition(options).then($scope.getPostalCode);
     /*if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition($scope.getPostalCode);
     }*/
@@ -88,11 +85,15 @@ angular.module('grocery.controllers')
       geocoder.geocode({'location': $rootScope.data.latlng}, function(results, status) {
         $ionicLoading.hide();
         if (status === google.maps.GeocoderStatus.OK) {
-            if (results[2]) {
-                $rootScope.data.postalCode = results[2].address_components[0].long_name;
-            } else {
-                window.alert('No results found');
-            }
+            results.forEach(function(addr){
+                if (addr.address_components){
+                    addr.address_components.forEach(function(comp){
+                        if (regex.test(comp.long_name)){
+                            $rootScope.data.postalCode = comp.long_name;
+                        }
+                    });
+                }
+            });
         }
     });
   }
